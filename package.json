@@ -1,0 +1,20 @@
+{
+  "name": "node-lab",
+  "version": "1.0.0",
+  "description": "Experimenting node and handy apps",
+  "author": "sivashanmugam4444@gmail.com",
+  "main": "server.js",
+  "private": false,
+  "engines": {
+    "node": ">=8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com:shivashanmugam/node-lab.git"
+  },
+  "dependencies": {
+    "csvtojson": "2.0.8",
+    "json2csv": "^4.2.1"
+  }
+}
