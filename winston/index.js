@@ -11,8 +11,8 @@ if (option == 'simple') {
     colorize();
 } else if(option == 'differnet-log-files'){
 
-} else if(option == 'rotate-logs'){
-
+} else if(option == 'rotate_logs'){
+    rotate_logs()
 }
 
 function simple(){
@@ -67,4 +67,34 @@ function colorize(){
     logger.info('This is from colorize');
     logger.error('This is from colorize');
     logger.silly('This is silly');
+}
+
+function rotate_logs(){
+    require('winston-daily-rotate-file');
+    const path = require('path');
+    let transports  = [];
+    const { createLogger } = winston;
+    transports.push(
+        new winston.transports.DailyRotateFile({
+          name: 'file',
+          datePattern: 'YYYY-MM-DD-THH-mm',
+          filename: path.join(__dirname, 'rotate_logs', 'log_file.log')
+        })
+      )
+      var logger = createLogger({ transports: transports })
+      
+      dataLog(0)
+      function dataLog(secondsPassed){
+        setTimeout(function(){
+            let dateNow = new Date();
+            logger.info(`seconds passed ${secondsPassed} and Time is ${dateNow}`);
+            console.log(`${secondsPassed}`);
+            if(dataLog != 130){ //two minutes + 1
+                dataLog(++secondsPassed);
+            }
+        },1000);
+      }
+      
+      // ... and logging
+      
 }
