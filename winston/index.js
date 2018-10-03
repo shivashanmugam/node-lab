@@ -73,12 +73,13 @@ function rotate_logs(){
     require('winston-daily-rotate-file');
     const path = require('path');
     let transports  = [];
-    const { createLogger } = winston;
+    const { createLogger, format } = winston;
     transports.push(
         new winston.transports.DailyRotateFile({
           name: 'file',
           datePattern: 'YYYY-MM-DD-THH-mm',
-          filename: path.join(__dirname, 'rotate_logs', 'log_file.log')
+          filename: path.join(__dirname, 'rotate_logs', 'log_file.log'),
+          format: format.combine(format.timestamp(),format.json()) //adds timestamp for each log
         })
       )
       var logger = createLogger({ transports: transports })
@@ -86,8 +87,7 @@ function rotate_logs(){
       dataLog(0)
       function dataLog(secondsPassed){
         setTimeout(function(){
-            let dateNow = new Date();
-            logger.info(`seconds passed ${secondsPassed} and Time is ${dateNow}`);
+            logger.info(`seconds passed ${secondsPassed}`);
             console.log(`${secondsPassed}`);
             if(dataLog != 130){ //two minutes + 1
                 dataLog(++secondsPassed);
