@@ -1,7 +1,7 @@
-console.log('script start')
+console.log('script start');
 
 const interval = setInterval(() => {
-    console.log('setInterval')
+    console.log('setInterval')  
 }, 0)
 
 setTimeout(() => {
