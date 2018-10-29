@@ -1,15 +1,16 @@
-const dbConfig = require('./config.js').db;
-const dbUrl = 'mongodb://'+ dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.name;
 const MongoClient = require('mongodb').MongoClient;
-let _db;
+let  _dbInstances = {};
 module.exports = {
-    connectToServer: function connectToServer(callback) {
+    connectToServer: function connectToServer(dbConfig, callback) {
+        const dbUrl = 'mongodb://'+ dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + ':' + dbConfig.port + '/' + dbConfig.name;
         MongoClient.connect(dbUrl, { useNewUrlParser: true }, function(err, client) {
-            _db = client.db(dbConfig.name);
-            return callback(err);
+            var _db = client.db(dbConfig.name);
+            var _dbId = Math.floor(Math.random() * 1000000000);
+            _dbInstances[_dbId] = _db;
+            return callback(err, _dbId);
         });
     },
-    getDb: function getDb() {
-        return _db;
+    getDb: function getDb(_dbId) {
+        return _dbInstances[_dbId];
     }
 };
