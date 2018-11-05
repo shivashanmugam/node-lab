@@ -9,7 +9,13 @@ if (op == 'import_json_data_to_collection') {
 
     operations.migrationFromOneDbCollectionToAnotherDbDollection('migration_from_one_db_collection_to_another_db_collection')
     
+} else if(op == 'patch_collection_data') {
+
+    operations.patchCollectionData('patch_collection_data')
+
 }
+
+
 
 
 

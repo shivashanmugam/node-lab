@@ -83,5 +83,35 @@ module.exports = {
             console.log(chalk.red('Error while connecting to DB'))
             throw err
         })
+    },
+    'patchCollectionData' : function(op){
+        const operationConfig = config['operation'][op];
+        const dbConfig = operationConfig.db;
+        
+        Promise.all([mongConPromise(dbConfig)]).then(function (result) {
+            const _db = mongoCon.getDb(result[0]);
+            const collectionName = operationConfig.collection_to_patch;
+            const projection = operationConfig.projection;
+            const patchFunction = operationConfig.patchFunction;
+            
+            _db.collection(collectionName).find(projection).toArray().then(result => {
+                const totalResultCount = result.length;
+                let resultsFixed = 0;
+                let failedPatchCount = 0;
+                _.each(result, r => {
+                    r = patchFunction(r);
+                    _db.collection(collectionName).updateOne({date:r.date}, { $set:r}, function(err, data){
+                        if(err){
+                            console.log(chalk.red(`Error while patching ${r.date}`))
+                            failedPatchCount++;
+                        }
+                        console.log(chalk.green(`Out of ${totalResultCount} fixed is ${++resultsFixed} and failed is ${chalk.red(failedPatchCount)}`));
+                    })
+                })
+            }).catch(err => {
+                console.log(chalk.red('Error while finding projection'))
+                throw err;
+            })
+        })
     }
 }
