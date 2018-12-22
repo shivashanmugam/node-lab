@@ -22,3 +22,9 @@ console.log(filePath.split(path.sep));
 console.log(chalk.yellow('ISABSOLUTE : returns boolean mentions whether a path is abolute or not'));
 console.log(path.isAbsolute(filePath));
 console.log(path.isAbsolute('../node_modules'));
+
+console.log(chalk.yellow('__filename'))
+console.log(__filename)
+
+console.log(chalk.yellow('__dirname'))
+console.log(__dirname)
