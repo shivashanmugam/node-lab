@@ -1,3 +1,4 @@
+'use strict';
 const operations = require('./operations.js');
 const op = process.argv[2];
 const express = require('express');

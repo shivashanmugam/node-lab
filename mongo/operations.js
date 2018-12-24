@@ -1,3 +1,4 @@
+'use strict';
 const fs = require('fs');
 const chalk = require('chalk');
 const _ = require('lodash');
@@ -67,11 +68,13 @@ module.exports = {
             const patchFunction = operationConfig.patchFunction;
             const filterAndPatchFunction = operationConfig.filterAndPatchFunction;
             _db.collection(collectionName).find(projection).toArray().then(result => {
-                const totalResultCount = result.length;
+                
+                let objectsToPatch = filterAndPatchFunction(result);
+                
+                const totalResultCount = objectsToPatch.length;
                 let resultsFixed = 0;
                 let failedPatchCount = 0;
-                let objectsToPatch = filterAndPatchFunction(result);
-                // Find the affected content and create a array with date objects which only needs to updated
+                global.value = objectsToPatch;
                 
                 _.each(objectsToPatch, r => {
                     _db.collection(collectionName).updateOne({ date: r.date }, { $set: r }, function (err, data) {

@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
     'operation': {
         'import_json_data_to_collection': {
@@ -23,8 +24,8 @@ module.exports = {
             'collection_to_patch': 'peopleDetails',
             'projection': {
                 date: {
-                    $gte: "1918-01-01T00:00:00.000Z",
-                    $lt: "1919-01-01T00:00:00.000Z"
+                    $gte: "2002-01-01T00:00:00.000Z",
+                    $lt: "2019-01-01T00:00:00.000Z"
                 }
             },
             // Apart from mongodb Projection this filter function will enable further more developer logical filters
@@ -35,7 +36,6 @@ module.exports = {
                 try {
                     const imageDirectoryBasePath = './images/scrapped';
                     let datesToUpdate = [];
-                    let affectedCount = 0;
                     _.each(data, function (dateData) {
                         let date = dateData.date;
                         let people = dateData.people;
@@ -46,7 +46,6 @@ module.exports = {
                                 path = `${imageDirectoryBasePath}/${year}/${person.entityId}.jpg`;
                                 if (!fs.existsSync(path)) {
                                     affected = true;
-                                    affectedCount++;
                                     person.image = null;
                                 }
                             }
@@ -54,7 +53,6 @@ module.exports = {
     
                         if (affected) datesToUpdate.push(dateData);
                     })
-                    console.log('totalAffected ' + chalk.yellow(affectedCount));
                     return datesToUpdate;    
                 }catch (err){
                     console.log('Error Inside filter Function');
