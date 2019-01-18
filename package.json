@@ -18,8 +18,11 @@
     "chalk": "^2.4.1",
     "csvtojson": "2.0.8",
     "express": "^4.16.4",
+    "express-rate-limit": "^3.3.2",
+    "grapheme-splitter": "^1.0.4",
     "json2csv": "^4.2.1",
     "mongo": "^0.1.0",
+    "request": "^2.88.0",
     "winston": "^3.1.0",
     "winston-daily-rotate-file": "^3.3.3"
   }
