@@ -1,0 +1,35 @@
+<!doctype HTML>
+<html>
+<!-- <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script> -->
+
+<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene embedded arjs >
+    
+    <a-marker preset='custom'  type="pattern" url="patterns/a.patt">
+      <!-- <a-text value="Apple" position='0.5 3 0' width="13" shadow rotation="0 150 180" color="red"></a-text> -->
+      <!-- position='-1.5 2 1' -->
+      <!-- rotation="0 150 180" -->
+      <!-- <a-text value="Hello, World!" color="red" width="13" rotation="0 0 90"></a-text> -->
+      <!-- <a-assets>
+        <img id="pink" src="https://img.gs/bbdkhfbzkk/stretch/http://i.imgur.com/1hyyIUi.jpg" crossorigin="anonymous" />
+      </a-assets> -->
+      <a-entity material="color: red; src: #texture" text-geometry="value: Hello world!;size: 0.6;bevelSize:0.1;"  position="-1 -7 0" rotation="-75 0 0"></a-entity>
+
+      <!-- <a-text value="Apple" position='0 2 -10' width="13" shadow rotation="0 50 50" color="red"></a-text> -->
+    </a-marker>
+
+
+    <!-- <a-marker preset='custom'  type="pattern" url="patterns/apple1.patt">
+      <a-text value="Apple" position='-1.5 0 0' width="13" shadow rotation="0 90 180" color="red"></a-text>
+    </a-marker> -->
+
+    
+
+    <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
